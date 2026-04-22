@@ -3,9 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Full Stack Project</title>
+    <title>PokeSearch</title>
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <!-- You code goes here-->
+    <header>
+      <h1>PokeSearch</h1>
+    </header>
+    <main>
+      <section id="search-section">
+        <h2>Which Pokemon are you looking for?</h2>
+        <input type="text" id="pokemon-search" placeholder="Enter Pokemon name or ID">
+        <button id="search-button">Search</button>
+      </section>
+      <section id="pokemon-display">
+        <h2>Pokemon Information</h2>
+        <div id="pokemon-name">Pokemon Name: <span id="name-placeholder">[Name]</span></div>
+        <div id="pokemon-image">
+          <img id="pokemon-img" src="" alt="Pokemon Image" style="display:none;">
+          <div id="image-placeholder">[Image Placeholder]</div>
+        </div>
+        <div id="pokemon-types">Types: <span id="types-placeholder">[Types]</span></div>
+        <div id="pokemon-species">Species: <span id="species-placeholder">[Species Description]</span></div>
+        <div id="evolution-chain">
+          <h3>Evolution Chain</h3>
+          <ul id="evolution-list">
+            <li id="evo-1">[Evolution 1]</li>
+            <li id="evo-2">[Evolution 2]</li>
+            <li id="evo-3">[Evolution 3]</li>
+          </ul>
+        </div>
+      </section>
+      <section id="past-searches">
+        <h2>Past Searches</h2>
+        <ul id="search-history">
+          <li>[Previous Search 1]</li>
+          <li>[Previous Search 2]</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>Powered by PokeAPI</p>
+    </footer>
+    <script src="index.js"></script>
   </body>
 </html>

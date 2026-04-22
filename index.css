@@ -1,1 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+}
 
+header {
+  background-color: #ffffff;
+  text-align: center;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#search-section {
+  text-align: center;
+}
+
+#pokemon-search {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+#search-button {
+  padding: 10px 20px;
+  background-color: #919191;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #0056b3;
+}
+
+#pokemon-display {
+  display: none; /* Hide until search */
+}
+
+#pokemon-image {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#pokemon-img {
+  max-width: 200px;
+}
+
+#evolution-chain ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#evolution-chain li {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+#past-searches ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#past-searches li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
