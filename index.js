@@ -78,18 +78,65 @@ function displayPokemon(pokemon, species, evolution) {
   const evolutions = [];
   let chain = evolution.chain;
   while (chain) {
-    evolutions.push(chain.species.name.charAt(0).toUpperCase() + chain.species.name.slice(1));
+    evolutions.push(chain.species.name);
     chain = chain.evolves_to[0]; 
   }
 
   evolutionList.innerHTML = '';
-  evolutions.forEach(evo => {
-    const li = document.createElement('li');
-    li.textContent = evo;
-    evolutionList.appendChild(li);
+  
+  evolutions.forEach(evoName => {
+    fetchAndDisplayEvolution(evoName);
   });
 
   pokemonDisplay.style.display = 'block';
+}
+
+async function fetchAndDisplayEvolution(pokemonName) {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${pokemonName}`);
+    }
+    const pokemonData = await response.json();
+    
+    const evoItem = document.createElement('div');
+    evoItem.className = 'evolution-item';
+    
+    const img = document.createElement('img');
+    img.className = 'evolution-image';
+    if (pokemonData.sprites.front_default) {
+      img.src = pokemonData.sprites.front_default;
+      img.alt = pokemonData.name;
+    } else {
+      img.alt = 'No image available';
+    }
+    
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'evolution-name';
+    nameDiv.textContent = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
+    
+    evoItem.appendChild(img);
+    evoItem.appendChild(nameDiv);
+    
+    evoItem.addEventListener('click', () => {
+      searchInput.value = pokemonName;
+      searchPokemon(pokemonName);
+    });
+    
+    evolutionList.appendChild(evoItem);
+    
+  } catch (error) {
+    console.error(`Error fetching evolution data for ${pokemonName}:`, error);
+    
+    // Display error item
+    const evoItem = document.createElement('div');
+    evoItem.className = 'evolution-item';
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'evolution-name';
+    nameDiv.textContent = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+    evoItem.appendChild(nameDiv);
+    evolutionList.appendChild(evoItem);
+  }
 }
 
 function addToHistory(query) {
@@ -104,13 +151,33 @@ function addToHistory(query) {
 function updateSearchHistory() {
   searchHistory.innerHTML = '';
   pastSearches.forEach(search => {
-    const li = document.createElement('li');
-    li.textContent = search.charAt(0).toUpperCase() + search.slice(1);
-    li.addEventListener('click', () => {
+    const historyItem = document.createElement('div');
+    historyItem.className = 'search-history-item';
+    historyItem.addEventListener('click', () => {
       searchInput.value = search;
       searchPokemon(search);
     });
-    searchHistory.appendChild(li);
+    
+    const img = document.createElement('img');
+    img.className = 'history-image';
+    img.alt = search;
+    
+    fetch(`https://pokeapi.co/api/v2/pokemon/${search}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.sprites.front_default) {
+          img.src = data.sprites.front_default;
+        }
+      })
+      .catch(error => console.error(`Error fetching image for ${search}:`, error));
+    
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'history-name';
+    nameDiv.textContent = search.charAt(0).toUpperCase() + search.slice(1);
+    
+    historyItem.appendChild(img);
+    historyItem.appendChild(nameDiv);
+    searchHistory.appendChild(historyItem);
   });
 }
 
